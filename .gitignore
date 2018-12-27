@@ -103,5 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#Mac Specific
+# Mac Specific
 .DS_Store
+
+# Data Files
+/data
+/tensorflow/vg-classifier-model
