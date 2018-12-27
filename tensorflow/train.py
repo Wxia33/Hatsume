@@ -207,7 +207,7 @@ def train(num_iteration):
             epoch = int(i / int(data.train.num_examples/batch_size))
 
             show_progress(epoch, feed_dict_tr, feed_dict_val, val_loss)
-            saver.save(session, '/vg-classifier-model/vg-classifier-model')
+            saver.save(session, './vg-classifier-model/vg-classifier-model')
 
 
     total_iterations += num_iteration
