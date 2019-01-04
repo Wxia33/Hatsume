@@ -1,0 +1,15 @@
+# Tensorflow
+tensorflow
+
+# OpenCV
+opencv-python
+
+# Numpy Installs
+numpy
+scipy
+matplotlib
+ipython
+jupyter
+pandas
+sympy
+nose
