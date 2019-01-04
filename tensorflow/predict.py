@@ -26,9 +26,9 @@ x_batch = images.reshape(1, image_size,image_size,num_channels)
 ## Let us restore the saved model
 sess = tf.Session()
 # Step-1: Recreate the network graph. At this step only graph is created.
-saver = tf.train.import_meta_graph('vg-classifier-model.meta')
+saver = tf.train.import_meta_graph('./vg-classifier-model/vg-classifier-model.meta')
 # Step-2: Now let's load the weights saved using the restore method.
-saver.restore(sess, tf.train.latest_checkpoint('./'))
+saver.restore(sess, tf.train.latest_checkpoint('./vg-classifier-model/'))
 
 # Accessing the default graph which we have restored
 graph = tf.get_default_graph()
