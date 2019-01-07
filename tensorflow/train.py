@@ -1,22 +1,19 @@
 import dataset
-import tensorflow as tf
 import time
-from datetime import timedelta
 import math
 import random
-import numpy as np
 import os
-
-#Adding Seed so that random initialization is consistent
+import numpy as np
+import tensorflow as tf
+from datetime import timedelta
 from numpy.random import seed
-seed(1)
 from tensorflow import set_random_seed
-set_random_seed(2)
 
+seed(1)
+set_random_seed(2)
 
 batch_size = 16
 
-#Prepare input data
 train_path='../data/train'
 classes = os.listdir(train_path)
 for i,j in enumerate(classes):
@@ -29,32 +26,73 @@ for i,j in enumerate(classes):
 fil.close()
 num_classes = len(classes)
 
-# 20% of the data will automatically be used for validation
 validation_size = 0.2
 img_size = 256
 num_channels = 3
 
+def create_weights(shape):
+    return tf.Variable(tf.truncated_normal(shape, stddev=0.05))
 
-# We shall load all the training and validation images and labels into memory using openCV and use that during training
+def create_biases(size):
+    return tf.Variable(tf.constant(0.05, shape=[size]))
+
+def create_convolutional_layer(input,
+               num_input_channels,
+               conv_filter_size,
+               num_filters):
+    weights = create_weights(shape=[conv_filter_size,
+        conv_filter_size,
+        num_input_channels,
+        num_filters])
+    biases = create_biases(num_filters)
+
+    layer = tf.nn.conv2d(input=input,
+                     filter=weights,
+                     strides=[1, 1, 1, 1],
+                     padding='SAME')
+    layer += biases
+    layer = tf.nn.max_pool(value=layer,
+                            ksize=[1, 2, 2, 1],
+                            strides=[1, 2, 2, 1],
+                            padding='SAME')
+    layer = tf.nn.relu(layer)
+    return layer
+
+
+
+def create_flatten_layer(layer):
+    layer_shape = layer.get_shape()
+
+    num_features = layer_shape[1:4].num_elements()
+
+    layer = tf.reshape(layer, [-1, num_features])
+
+    return layer
+
+
+def create_fc_layer(input,
+             num_inputs,
+             num_outputs,
+             use_relu=True):
+    weights = create_weights(shape=[num_inputs, num_outputs])
+    biases = create_biases(num_outputs)
+    layer = tf.matmul(input, weights) + biases
+    if use_relu:
+        layer = tf.nn.relu(layer)
+
+    return layer
+
 data = dataset.read_train_sets(train_path, img_size, classes, validation_size=validation_size)
-
 
 print("Complete reading input data. Will Now print a snippet of it")
 print("Number of files in Training-set:\t\t{}".format(len(data.train.labels)))
 print("Number of files in Validation-set:\t{}".format(len(data.valid.labels)))
 
-
-
 session = tf.Session()
 x = tf.placeholder(tf.float32, shape=[None, img_size,img_size,num_channels], name='x')
-
-## labels
 y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
 
-
-
-##Network graph params
 filter_size_conv1 = 3
 num_filters_conv1 = 32
 
@@ -65,75 +103,6 @@ filter_size_conv3 = 3
 num_filters_conv3 = 64
 
 fc_layer_size = 256
-
-def create_weights(shape):
-    return tf.Variable(tf.truncated_normal(shape, stddev=0.05))
-
-def create_biases(size):
-    return tf.Variable(tf.constant(0.05, shape=[size]))
-
-
-
-def create_convolutional_layer(input,
-               num_input_channels,
-               conv_filter_size,
-               num_filters):
-
-    ## We shall define the weights that will be trained using create_weights function.
-    weights = create_weights(shape=[conv_filter_size, conv_filter_size, num_input_channels, num_filters])
-    ## We create biases using the create_biases function. These are also trained.
-    biases = create_biases(num_filters)
-
-    ## Creating the convolutional layer
-    layer = tf.nn.conv2d(input=input,
-                     filter=weights,
-                     strides=[1, 1, 1, 1],
-                     padding='SAME')
-
-    layer += biases
-
-    ## We shall be using max-pooling.
-    layer = tf.nn.max_pool(value=layer,
-                            ksize=[1, 2, 2, 1],
-                            strides=[1, 2, 2, 1],
-                            padding='SAME')
-    ## Output of pooling is fed to Relu which is the activation function for us.
-    layer = tf.nn.relu(layer)
-
-    return layer
-
-
-
-def create_flatten_layer(layer):
-    #We know that the shape of the layer will be [batch_size img_size img_size num_channels]
-    # But let's get it from the previous layer.
-    layer_shape = layer.get_shape()
-
-    ## Number of features will be img_height * img_width* num_channels. But we shall calculate it in place of hard-coding it.
-    num_features = layer_shape[1:4].num_elements()
-
-    ## Now, we Flatten the layer so we shall have to reshape to num_features
-    layer = tf.reshape(layer, [-1, num_features])
-
-    return layer
-
-
-def create_fc_layer(input,
-             num_inputs,
-             num_outputs,
-             use_relu=True):
-
-    #Let's define trainable weights and biases.
-    weights = create_weights(shape=[num_inputs, num_outputs])
-    biases = create_biases(num_outputs)
-
-    # Fully connected layer takes input x and produces wx+b.Since, these are matrices, we use matmul function in Tensorflow
-    layer = tf.matmul(input, weights) + biases
-    if use_relu:
-        layer = tf.nn.relu(layer)
-
-    return layer
-
 
 layer_conv1 = create_convolutional_layer(input=x,
                num_input_channels=num_channels,
