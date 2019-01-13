@@ -5,24 +5,6 @@ import numpy as np
 
 filename = ''
 
-# Loop through frame of video
-temp_list = deque()
-with open(filename, 'rb') as vid:
-    frames = pickle.load(vid)
-
-for frame in frames:
-    features = frame[0]
-    actual = frame[1]
-
-    if len(temp_list) == num_frames - 1:
-        temp_list.append(features)
-        X.append(np.array(list(temp_list)))
-        y.append(actual)
-        temp_list.popleft()
-    else:
-        temp_list.append(features)
-        continue
-
 # One-layer LSTM
 def build_rnn(frames, input_size, num_classes):
     net = tflearn.input_data(shape=[None, frames, input_size])
@@ -31,6 +13,8 @@ def build_rnn(frames, input_size, num_classes):
     net = tflearn.regression(net, optimizer='adam',
                              loss='categorical_crossentropy', name='output1')
     return net
+
+net = build_rnn(,3)
 
 # Train the model.
 model = tflearn.DNN(net, tensorboard_verbose=0)
