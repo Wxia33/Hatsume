@@ -24,24 +24,19 @@ n = 1
 cumulative_mean = 0
 vidObj = cv2.VideoCapture(video_name)
 success, img = vidObj.read()
+
+img_list = []
 while success:
     img = cv2.resize(img, (image_size, image_size),0,0, cv2.INTER_LINEAR)
+    img_list.append(img)
 
     #img = cv2.imread(image)
     laplacian = cv2.Laplacian(img, cv2.CV_64F)
     grad_sum = abs(np.sum(laplacian))
-    print grad_sum, maxsumgrad
-    if grad_sum > maxsumgrad:
-        maxsumgrad = grad_sum
-        maxgradList.append(img)
-        maxgrad_laplacian = laplacian
-        if len(maxgradList) > topN:
-            del maxgradList[0]
+    
     grad_sequence.append(grad_sum)
     cumulative_mean += grad_sum
-    n += 1
-    if n == 2300:
-        break
+
     success, img = vidObj.read()
 print n
 
