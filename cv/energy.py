@@ -7,8 +7,8 @@ video_name = '../data/videos/2018-11-14-2002-36Collateral.mp4'
 # video 2018-11-14-2002-36Collateral.mp4
 # Total Frames: 244
 
-video_name = '../data/videos/2018-11-14-1951-49_Trim.mp4'
-video_name = '../data/videos/hs-game-ipad-1.mp4'
+# video_name = '../data/videos/2018-11-14-1951-49_Trim.mp4'
+# video_name = '../data/videos/hs-game-ipad-1.mp4'
 #dir_path = os.path.dirname(os.path.realpath(__file__))
 #video_name = dir_path +'/' +image_path
 
@@ -30,7 +30,7 @@ while success:
     img_list.append(img)
 
     #img = cv2.imread(image)
-    laplacian = cv2.Laplacian(img, cv2.CV_64F)
+    laplacian = cv2.Laplacian(img, cv2.CV_64F)  #Experiment with different energy functions?
     grad_sum = abs(np.sum(laplacian))
 
     grad_sequence.append(grad_sum)
