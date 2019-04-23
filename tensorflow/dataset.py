@@ -1,8 +1,9 @@
-import cv2
-import os
 import glob
-from sklearn.utils import shuffle
+import os
+
+import cv2
 import numpy as np
+from sklearn.utils import shuffle
 
 
 def load_train(train_path, image_size, classes):

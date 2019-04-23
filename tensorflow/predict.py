@@ -1,7 +1,9 @@
-import tensorflow as tf
+import cv2
+import os
+import sys
+
 import numpy as np
-import os,glob,cv2
-import sys,argparse
+import tensorflow as tf
 
 train_path = '../data/train'
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -11,6 +13,12 @@ image_size = 256
 num_channels = 3
 
 def imagePreprocess(filename):
+    '''
+    :param filename: File to be input
+    :return: image set
+
+    Preprocesses image by resizing
+    '''
     images = []
     image = cv2.imread(filename)
     image = cv2.resize(image, (image_size, image_size),0,0, cv2.INTER_LINEAR)
@@ -41,6 +49,6 @@ res = max(result[0])
 labels = fil.read().split()
 for i,j in enumerate(result[0]):
     if j == res:
-        print labels[i]
+        print(labels[i])
         break
 fil.close()

@@ -1,11 +1,7 @@
-import dataset
-import time
-import math
-import random
 import os
-import numpy as np
+
+import dataset
 import tensorflow as tf
-from datetime import timedelta
 from numpy.random import seed
 from tensorflow import set_random_seed
 
