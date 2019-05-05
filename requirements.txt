@@ -13,3 +13,6 @@ jupyter
 pandas
 sympy
 nose
+
+# Flask
+flask

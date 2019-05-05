@@ -1,7 +1,8 @@
-import tensorflow as tf
+import cv2
+import os
+
 import numpy as np
-import os,glob,cv2
-import sys,argparse
+import tensorflow as tf
 
 #Data directory
 dat_dir = '../data'

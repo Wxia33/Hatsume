@@ -16,7 +16,7 @@ while success:
 del frame_q[0:120]
 del frame_q[181 - 100:len(frame_q)]
 
-print len(frame_q)
+print(len(frame_q))
 for frame in frame_q:
     cv2.imshow('Frame', frame)
     if cv2.waitKey(25) and 0xFF == ord("q"):

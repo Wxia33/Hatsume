@@ -10,4 +10,4 @@ while success:
     frame_q.append(img)
     success, img = vidObj.read()
 
-print frame_q
+print(frame_q)
