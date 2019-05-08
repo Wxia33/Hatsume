@@ -1,6 +1,3 @@
-import cv.detect_game_shift as detect_shift
-from flask import Flask
-from flask import render_template
 import os
 from flask import Flask, request, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -11,9 +8,11 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -44,8 +43,4 @@ def upload_file():
     '''
 
 
-@app.route('/analysis/<str:filename>', methods=['GET','POST'])
-def vid_analysis(filename):
-    if request.method == 'GET':
-        print(filename)
-    return
+app.run()
