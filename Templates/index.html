@@ -1,0 +1,11 @@
+<!doctype html>
+<title>Hatsume</title>
+<h1>Hatsume</h1>
+<p>Upload video you want analyzed</p>
+<form method=post enctype=multipart/form-data>
+    <p> <input type=file name=file>
+        <input type=submit name=analysis_type value="Find Highlights">
+        <input type=submit name=analysis_type value="Split Frames">
+    </p>
+</form>
+<p> Frames Changed at: {{ frame_change }}</p>
