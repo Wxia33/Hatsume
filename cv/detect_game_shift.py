@@ -4,7 +4,7 @@ import tensorflow as tf
 from collections import defaultdict
 
 
-def read_labels(filename='labels.txt'):
+def read_labels(filename='./tensorflow/labels.txt'):
     # Read label file
     label_file = open(filename, 'r')
     labels = label_file.read().split()
@@ -14,7 +14,7 @@ def read_labels(filename='labels.txt'):
 
 def game_change_detect(
         video_name,
-        model_path='../tensorflow/vg-classifier-model/vg-classifier-model.meta',
+        model_path='./tensorflow/vg-classifier-model/vg-classifier-model.meta',
         image_size=256,
         num_channels=3
 ):
@@ -31,7 +31,7 @@ def game_change_detect(
     # Start tensorflow session
     sess = tf.Session()
     saver = tf.train.import_meta_graph(model_path)
-    saver.restore(sess, tf.train.latest_checkpoint('../tensorflow/vg-classifier-model/'))
+    saver.restore(sess, tf.train.latest_checkpoint('./tensorflow/vg-classifier-model/'))
     graph = tf.get_default_graph()
 
     # Moving average of previous 20 frames
@@ -58,7 +58,7 @@ def game_change_detect(
         res = max(result[0])
         for i, j in enumerate(result[0]):
             if j == res:
-                print(labels[i])
+                #print(labels[i])
                 prevClass.append(i)
                 classDict[i] += 1
                 if len(prevClass) > 20:
