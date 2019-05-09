@@ -2,6 +2,15 @@
 
 Computer vision project for analyzing events in video game clips
 
+## Demo
+
+App identifying highlights here
+
+App splitting videos here
+
+App organizing videos here
+
+
 ## Description
 
 ### Video Organization
