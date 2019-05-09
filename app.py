@@ -52,5 +52,6 @@ def vid_analysis(filename):
 def results(frame_change):
     return render_template('index.html', frame_change=frame_change)
 
+
 if __name__ == "__main__":
     app.run()
