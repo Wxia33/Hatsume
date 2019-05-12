@@ -3,18 +3,18 @@ import tensorflow as tf
 from tensorflow.contrib import rnn
 import sklearn.model_selection as sk
 
-X_train =
-Y_train =
-X_val =
-Y_val =
+X_train = 2
+Y_train = 2
+X_val = 2
+Y_val = 2
 
-hm_epochs =
-n_classes =
-batch_size =
-batch_size_val =
-chunk_size =
-n_chunks =
-rnn_size =
+hm_epochs = 2
+n_classes = 2
+batch_size = 2
+batch_size_val = 2
+chunk_size = 2
+n_chunks = 2
+rnn_size = 2
 
 with tf.name_scope('Inputs'):
     x = tf.placeholder('float', [None, None, chunk_size], name='Features')
