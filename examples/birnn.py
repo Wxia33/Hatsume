@@ -22,7 +22,7 @@ with tf.name_scope('Inputs'):
 
 
 def bi_directional_lstm(x):
-    x = tf.unstack(x, n_chunks, 1);
+    x = tf.unstack(x, n_chunks, 1)
 
     lstm_cell_1 = tf.contrib.rnn.BasicLSTMCell(rnn_size, forget_bias=1.0, state_is_tuple=True)
     lstm_cell_2 = tf.contrib.rnn.BasicLSTMCell(rnn_size, forget_bias=1.0, state_is_tuple=True)
@@ -35,7 +35,7 @@ def bi_directional_lstm(x):
     weights = tf.Variable(tf.random_normal([2 * rnn_size, n_classes]), name='weights1')
 
     biases = tf.Variable(tf.random_normal([n_classes]), name='biases1')
-    return tf.matmul(outputs[-1], weights) + biases
+    return tf.matmul(x[-1], weights) + biases
 
 
 def train_bilstm(x):
@@ -44,7 +44,7 @@ def train_bilstm(x):
     best_accurracy = 0.0
 
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits
-                          (logits=prediciton, labels=y))
+                          (logits=prediction, labels=y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
     with tf.Session() as sess:
         tf.device('/gpu:0')
