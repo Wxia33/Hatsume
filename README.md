@@ -2,33 +2,31 @@
 
 Computer vision project for analyzing events in video game clips
 
-## Demo
-
-App identifying highlights here
-
-App splitting videos here
-
-App organizing videos here
-
-
 ## Description
 
 ### Video Organization
 
-Automatically organizes videos into separate folders
+Automatically organizes gaming videos into their respective folders.  If you have a bunch of gaming videos in one directory, Hatsume can automatically put the videos in the correct gaming folders.
 
-### Content Highlights
+#### Demo
 
-Highlights memorable sections of the video
+Video Here
 
-### Highly Flexible
+### Video Separation
 
-Can be configured to work with any video clips
+If you have a long recording where you're playing multiple games, Hatsume can split the video where you change between games.
 
-## Installation
+#### Demo
 
-TBD
+Video Here
 
-## Usage
+### Content Highlights (In Progress!)
 
-TBD
+Highlights sections of your gaming videos where there is a lot of action or something really cool happened.
+
+
+
+## Ongoing Work
+
+Classification of video sections that contain interesting action is ongoing.  My ideas for how to get a system working can be found here https://github.com/Wxia33/hatsume-meta
+
