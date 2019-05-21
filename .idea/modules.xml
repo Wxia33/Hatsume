@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/hatsume.iml" filepath="$PROJECT_DIR$/.idea/hatsume.iml" />
+      <module fileurl="file://$USER_HOME$/PycharmProjects/hatsume-meta/.idea/hatsume-meta.iml" filepath="$USER_HOME$/PycharmProjects/hatsume-meta/.idea/hatsume-meta.iml" />
     </modules>
   </component>
 </project>

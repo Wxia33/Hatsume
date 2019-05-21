@@ -2,9 +2,10 @@ import cv2
 import numpy as np
 import tensorflow as tf
 from collections import defaultdict
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 
-def read_labels(filename='./tensorflow/labels.txt'):
+def read_labels(filename='../tensorflow/labels.txt'):
     # Read label file
     label_file = open(filename, 'r')
     labels = label_file.read().split()
@@ -14,7 +15,7 @@ def read_labels(filename='./tensorflow/labels.txt'):
 
 def game_change_detect(
         video_name,
-        model_path='./tensorflow/vg-classifier-model/vg-classifier-model.meta',
+        model_path='../tensorflow/vg-classifier-model/vg-classifier-model.meta',
         image_size=256,
         num_channels=3
 ):
@@ -31,7 +32,7 @@ def game_change_detect(
     # Start tensorflow session
     sess = tf.Session()
     saver = tf.train.import_meta_graph(model_path)
-    saver.restore(sess, tf.train.latest_checkpoint('./tensorflow/vg-classifier-model/'))
+    saver.restore(sess, tf.train.latest_checkpoint('../tensorflow/vg-classifier-model/'))
     graph = tf.get_default_graph()
 
     # Moving average of previous 20 frames
@@ -72,6 +73,7 @@ def game_change_detect(
             frameChange.append(n)
         n += 1
         success, img = vidObj.read()
+    frameChange.append(n-1)
     return frameChange
 
 
@@ -81,6 +83,15 @@ def main():
     frames_changed = game_change_detect(video_name)
 
     print('Games changed at frames: ', frames_changed)
+
+    response = input('Would you like to download? (y/n): ')
+
+    if response == 'y':
+        prev_frame = 0
+        for frame in frames_changed:
+            print(prev_frame, frame)
+            ffmpeg_extract_subclip(video_name, max(0, prev_frame-10), frame, targetname="./highlight" + str(frame) + ".mp4")
+            prev_frame = frame
 
 
 if __name__ == "__main__":
