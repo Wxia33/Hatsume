@@ -12,6 +12,7 @@ filename = dir_path +'/' +image_path
 image_size = 256
 num_channels = 3
 
+
 def imagePreprocess(filename):
     '''
     :param filename: File to be input

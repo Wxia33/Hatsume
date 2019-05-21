@@ -58,7 +58,6 @@ def game_change_detect(
         res = max(result[0])
         for i, j in enumerate(result[0]):
             if j == res:
-                #print(labels[i])
                 prevClass.append(i)
                 classDict[i] += 1
                 if len(prevClass) > 20:

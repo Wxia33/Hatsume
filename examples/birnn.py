@@ -44,7 +44,7 @@ def train_bilstm(x):
     best_accurracy = 0.0
 
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits
-                          (logits=prediciton, labels=y))
+                          (logits=prediction, labels=y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
     with tf.Session() as sess:
         tf.device('/gpu:0')
@@ -53,7 +53,7 @@ def train_bilstm(x):
         kk = 0
         for epoch in range(hm_epochs):
             epoch_loss = 0
-            valdd = []
+            valid = []
             k = 0
             for _ in range(int(trainSamples / batch_size)):
                 epoch_x = X_train[k:k + batch_size, :]
@@ -71,6 +71,7 @@ def train_bilstm(x):
     Val_Accuracy.append(accuracy_out)
     print('Validation Accuracy : ', accuracy_out, '  ||| Best Accuracy :', best_accuracy)
     return
+
 
 if __name__ == '__main__':
     train_bilstm(x)

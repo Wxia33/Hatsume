@@ -1,10 +1,10 @@
 import os
-
 import Tkinter
 import cv2
 import numpy as np
 import tensorflow as tf
 import tkFileDialog
+
 
 def organize_videos(path):
     image_size = 256
@@ -60,11 +60,12 @@ def organize_videos(path):
         os.rename(path + vid, path + folder + '/' + vid)
     return
 
+
 def main():
     root = Tkinter.Tk()
-    path = tkFileDialog.askdirectory(parent = root,
-            initialdir="./",
-            title='Please select a directory')
+    path = tkFileDialog.askdirectory(parent=root,
+                                     initialdir="./",
+                                     title='Please select a directory')
     path += '/'
 
     organize_videos(path)
