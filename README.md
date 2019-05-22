@@ -20,6 +20,8 @@ If you have a long recording where you're playing multiple games, Hatsume can sp
 
 ![](./video_sep.gif)
 
+Here, we see the blops_and_hstone file being split into it's respective video games, a video of black ops, and another of hearthstone, which were the two component videos of the original mp4 file.
+
 ### Content Highlights (In Progress!)
 
 Highlights sections of your gaming videos where there is a lot of action or something really cool happened.
