@@ -10,7 +10,9 @@ Automatically organizes gaming videos into their respective folders.  If you hav
 
 #### Demo
 
-Video Here
+![](./video_org.gif)
+
+Here, we see a set of videos consisting of 2 black ops, 2 hearthstone, and 1 pubg videos.  All 5 videos are sorted into the correct directories.
 
 ### Video Separation
 
