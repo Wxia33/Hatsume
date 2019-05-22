@@ -1,9 +1,9 @@
 import os
-import Tkinter
+import tkinter
 import cv2
 import numpy as np
 import tensorflow as tf
-import tkFileDialog
+import tkinter.filedialog
 
 
 def organize_videos(path):
@@ -15,7 +15,7 @@ def organize_videos(path):
             vidFiles.append(f)
 
     print('Retrieving Labels...')
-    labelFile = open('labels.txt', 'r')
+    labelFile = open('../tensorflow/labels.txt', 'r')
     labels = labelFile.read().split()
     labelFile.close()
 
@@ -62,8 +62,8 @@ def organize_videos(path):
 
 
 def main():
-    root = Tkinter.Tk()
-    path = tkFileDialog.askdirectory(parent=root,
+    root = tkinter.Tk()
+    path = tkinter.filedialog.askdirectory(parent=root,
                                      initialdir="./",
                                      title='Please select a directory')
     path += '/'
