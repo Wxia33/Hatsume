@@ -42,7 +42,9 @@ def game_change_detect(
     prevMajClass = -1
 
     n = 0
+    frame_arr = []
     while success:
+        frame_arr.append(vidObj.get(cv2.CAP_PROP_POS_MSEC)//1000)
         image = []
         img = cv2.resize(img, (image_size, image_size), 0, 0, cv2.INTER_LINEAR)
         image.append(img)
@@ -74,13 +76,13 @@ def game_change_detect(
         n += 1
         success, img = vidObj.read()
     frameChange.append(n-1)
-    return frameChange
+    return frameChange, frame_arr
 
 
 def main():
     video_name = '../data/videos/blops_and_hstone.mp4'
 
-    frames_changed = game_change_detect(video_name)
+    frames_changed, frame_arr = game_change_detect(video_name)
 
     print('Games changed at frames: ', frames_changed)
 
@@ -90,7 +92,7 @@ def main():
         prev_frame = 0
         for frame in frames_changed:
             print(prev_frame, frame)
-            ffmpeg_extract_subclip(video_name, max(0, prev_frame-10), frame, targetname="./highlight" + str(frame) + ".mp4")
+            ffmpeg_extract_subclip(video_name, frame_arr[prev_frame], frame_arr[frame], targetname="./highlight" + str(frame) + ".mp4")
             prev_frame = frame
 
 
