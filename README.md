@@ -18,7 +18,7 @@ If you have a long recording where you're playing multiple games, Hatsume can sp
 
 #### Demo
 
-![](video_sep.gif)
+![](./video_sep.gif)
 
 ### Content Highlights (In Progress!)
 
