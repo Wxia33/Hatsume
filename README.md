@@ -1,6 +1,6 @@
 # Hatsume
 
-Computer vision project for analyzing events in video game clips
+Computer vision project for analyzing events in video game clips.  The program analyzes only the content of the video itself, so no naming conventions or metadata are required.
 
 ## Description
 
